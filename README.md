@@ -1,6 +1,5 @@
 Laptop
 ======
-[![Build Status](https://travis-ci.org/monfresh/laptop.svg)](https://travis-ci.org/monfresh/laptop)
 
 Laptop is a script to set up an OS X computer for web development.
 
@@ -38,11 +37,11 @@ time, then press `return` after each one to download and execute the
 script, respectively:
 
 ```sh
-curl --remote-name https://raw.githubusercontent.com/monfresh/laptop/master/mac
+curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/mac
 bash mac 2>&1 | tee ~/laptop.log && source ~/.rvm/scripts/rvm
 ```
 
-The [script](https://github.com/monfresh/laptop/blob/master/mac) itself is
+The [script](https://github.com/roberttaraya/laptop/blob/master/mac) itself is
 available in this repo for you to review if you want to see what it does
 and how it works.
 
