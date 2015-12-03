@@ -8,7 +8,7 @@
 brew install tree
 
 brew_cask_install alfred
-brew_cask_install balsamiq-mockups
+# brew_cask_install balsamiq-mockups
 brew_cask_install bartender
 brew_cask_install google-chrome
 brew_cask_install dash
