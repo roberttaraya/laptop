@@ -14,7 +14,7 @@ brew_cask_install google-chrome
 brew_cask_install dash
 brew_cask_install firefox
 brew_cask_install gimp
-brew_cask_install github
+brew_cask_install github-desktop
 brew_cask_install google-drive
 brew_cask_install hipchat
 brew_cask_install iterm2
