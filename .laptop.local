@@ -9,11 +9,11 @@ brew install tree
 
 brew_cask_install alfred
 brew_cask_install bartender
-brew_cask_install google-chrome
 brew_cask_install dash
 brew_cask_install firefox
 brew_cask_install gimp
 brew_cask_install github-desktop
+brew_cask_install google-chrome
 brew_cask_install google-drive
 brew_cask_install hipchat
 brew_cask_install iterm2
@@ -24,7 +24,7 @@ brew_cask_install screenhero
 brew_cask_install skype
 brew_cask_install slack
 brew_cask_install spectacle
-#brew_cask_install sublime-text
-#brew_cask_install vagrant
-#brew_cask_install virtualbox
+# brew_cask_install sublime-text
+# brew_cask_install vagrant
+# brew_cask_install virtualbox
 brew_cask_install vlc
