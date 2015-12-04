@@ -8,7 +8,6 @@
 brew install tree
 
 brew_cask_install alfred
-# brew_cask_install balsamiq-mockups
 brew_cask_install bartender
 brew_cask_install google-chrome
 brew_cask_install dash
@@ -19,7 +18,7 @@ brew_cask_install google-drive
 brew_cask_install hipchat
 brew_cask_install iterm2
 brew_cask_install kaleidoscope
-brew_cask_install mou
+brew_cask_install macdown
 brew_cask_install pgadmin3
 brew_cask_install screenhero
 brew_cask_install skype
