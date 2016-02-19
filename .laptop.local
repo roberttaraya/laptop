@@ -20,6 +20,7 @@ brew_cask_install iterm2
 brew_cask_install kaleidoscope
 brew_cask_install macdown
 brew_cask_install pgadmin3
+brew_cask_install postman
 brew_cask_install robomongo
 brew_cask_install screenhero
 brew_cask_install skype
