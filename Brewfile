@@ -13,6 +13,7 @@ brew 'parity'
 # Databases
 brew 'postgresql', restart_service: true
 brew 'redis', restart_service: true
+brew 'mysql', restart_service: true
 
 # Testing
 brew 'phantomjs'
