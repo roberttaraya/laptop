@@ -1,25 +1,32 @@
-# Unix
-brew 'git'
-brew 'openssl'
+brew 'tree'
 
-# Heroku
-brew 'heroku-toolbelt'
-brew 'parity'
-
-# Databases
-brew 'postgresql', restart_service: true
-brew 'redis', restart_service: true
-
-# Testing
-brew 'phantomjs'
-
-# Github
-brew 'hub'
-
-# Programming languages and package managers
-brew 'node'
-brew 'yarn'
-
-cask 'flux'
+# cask 'alfred'
+# cask 'atom'
+# cask 'bartender'
+cask 'balsamiq-mockups'
+cask 'cloud'
+cask 'dash'
+cask 'firefox'
+cask 'flux-beta'
+# cask 'gimp'
 cask 'github-desktop'
+cask 'google-chrome'
+cask 'google-drive'
+cask 'google-photos-backup'
+# cask 'hipchat'
+cask 'iterm2'
+cask 'kaleidoscope'
+cask 'kindle'
+cask 'macdown'
+cask 'pgadmin3'
+cask 'qbittorrent'
+cask 'robomongo'
+cask 'screenhero'
+cask 'silverlight'
+cask 'skype'
+cask 'slack'
+cask 'spectacle'
 cask 'sublime-text'
+# cask 'vagrant'
+# cask 'virtualbox'
+cask 'vlc'
