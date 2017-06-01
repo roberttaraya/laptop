@@ -1,32 +1,11 @@
 #!/bin/sh
 
-# brew_cask_install 'atom'
-# brew_cask_install 'cloud'
-# brew_cask_install 'firefox'
-# brew_cask_install 'iterm2'
+fancy_echo "Running your customizations from ~/.laptop.local ..."
 
-brew install tree
-
-brew_cask_install alfred
-brew_cask_install bartender
-brew_cask_install dash
-brew_cask_install firefox
-brew_cask_install gimp
-brew_cask_install github-desktop
-brew_cask_install google-chrome
-brew_cask_install google-drive
-brew_cask_install hipchat
-brew_cask_install iterm2
-brew_cask_install kaleidoscope
-brew_cask_install macdown
-brew_cask_install pgadmin3
-brew_cask_install postman
-brew_cask_install robomongo
-brew_cask_install screenhero
-brew_cask_install skype
-brew_cask_install slack
-brew_cask_install spectacle
-# brew_cask_install sublime-text
-# brew_cask_install vagrant
-# brew_cask_install virtualbox
-brew_cask_install vlc
+if [ -f "$HOME/Brewfile.local" ]; then
+  if brew bundle --file="$HOME/Brewfile.local"; then
+    fancy_echo "All items in Brewfile.local were installed successfully."
+  else
+    fancy_echo "Some items in Brewfile.local were not installed successfully."
+  fi
+fi
