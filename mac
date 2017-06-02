@@ -321,7 +321,7 @@ fancy_echo "Ensuring Docker is running..."
 
 if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
   open /Applications/Docker.app
+  fancy_echo "...Docker is running. You're good to go!"
 fi
 
-fancy_echo "...Docker is running. You're good to go!"
 fancy_echo 'All done!'
