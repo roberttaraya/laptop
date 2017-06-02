@@ -1,61 +1,32 @@
 brew 'tree'
 
 # cask 'alfred'
-
 # cask 'atom'
-
 # cask 'bartender'
-
 cask 'balsamiq-mockups'
-
-cask 'cloud'
-
+cask 'cloudapp'
 cask 'dash'
-
 cask 'firefox'
-
-cask 'flux-beta'
-
+cask 'flux'
 # cask 'gimp'
-
 cask 'github-desktop'
-
 cask 'google-chrome'
-
 cask 'google-drive'
-
 cask 'google-photos-backup'
-
 # cask 'hipchat'
-
 cask 'iterm2'
-
 cask 'kaleidoscope'
-
 cask 'kindle'
-
 cask 'macdown'
-
 cask 'pgadmin3'
-
 cask 'qbittorrent'
-
 cask 'robomongo'
-
 cask 'screenhero'
-
 cask 'silverlight'
-
 cask 'skype'
-
 cask 'slack'
-
 cask 'spectacle'
-
 cask 'sublime-text'
-
 # cask 'vagrant'
-
 # cask 'virtualbox'
-
 cask 'vlc'
