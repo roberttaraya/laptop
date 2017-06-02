@@ -136,6 +136,13 @@ append_to_file "$shell_file" "alias laptop='bash <(curl -s https://raw.githubuse
 append_to_file "$shell_file" 'export PATH="$HOME/.bin:$PATH"'
 
 ##
+# Downloading .laptop.local and Brewfile.local
+# NOTE: make sure these files are up-to-date before running this script
+cd ~
+curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/.laptop.local
+curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/Brewfile.local
+
+##
 # Install & update Homebrew
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
