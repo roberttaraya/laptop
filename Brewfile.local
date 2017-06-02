@@ -1,92 +1,61 @@
-fancy_echo "installing tree"
 brew 'tree'
 
-# fancy_echo "Installing alfred..."
 # cask 'alfred'
 
-# fancy_echo "Installing atom..."
 # cask 'atom'
 
-# fancy_echo "Installing bartender..."
 # cask 'bartender'
 
-fancy_echo "Installing balsamiq-mockups..."
 cask 'balsamiq-mockups'
 
-fancy_echo "Installing cloud..."
 cask 'cloud'
 
-fancy_echo "Installing dash..."
 cask 'dash'
 
-fancy_echo "Installing firefox..."
 cask 'firefox'
 
-fancy_echo "Installing flux-beta..."
 cask 'flux-beta'
 
-# fancy_echo "Installing gimp..."
 # cask 'gimp'
 
-fancy_echo "Installing github-desktop..."
 cask 'github-desktop'
 
-fancy_echo "Installing google-chrome..."
 cask 'google-chrome'
 
-fancy_echo "Installing google-drive..."
 cask 'google-drive'
 
-fancy_echo "Installing google-photos-backup..."
 cask 'google-photos-backup'
 
-# fancy_echo "Installing hipchat..."
 # cask 'hipchat'
 
-fancy_echo "Installing iterm2..."
 cask 'iterm2'
 
-fancy_echo "Installing kaleidoscope..."
 cask 'kaleidoscope'
 
-fancy_echo "Installing kindle..."
 cask 'kindle'
 
-fancy_echo "Installing macdown..."
 cask 'macdown'
 
-fancy_echo "Installing pgadmin3..."
 cask 'pgadmin3'
 
-fancy_echo "Installing qbittorrent..."
 cask 'qbittorrent'
 
-fancy_echo "Installing robomongo..."
 cask 'robomongo'
 
-fancy_echo "Installing screenhero..."
 cask 'screenhero'
 
-fancy_echo "Installing silverlight..."
 cask 'silverlight'
 
-fancy_echo "Installing skype..."
 cask 'skype'
 
-fancy_echo "Installing slack..."
 cask 'slack'
 
-fancy_echo "Installing spectacle..."
 cask 'spectacle'
 
-fancy_echo "Installing sublime-text..."
 cask 'sublime-text'
 
-# fancy_echo "Installing vagrant..."
 # cask 'vagrant'
 
-# fancy_echo "Installing virtualbox..."
 # cask 'virtualbox'
 
-fancy_echo "Installing vlc..."
 cask 'vlc'
