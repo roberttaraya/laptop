@@ -1,5 +1,6 @@
 cask_args appdir: '/Applications'
 
+tap 'thoughtbot/formulae'
 tap 'homebrew/services'
 
 # Unix
