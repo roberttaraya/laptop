@@ -353,7 +353,7 @@ fancy_echo "it will use the Solarized theme."
 fancy_echo ""
 
 fancy_echo "Copying Sublime Text Preferences..."
-cd /Users/rtaraya/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
+cd /Users/roberttaraya/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
 curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/a5c32f6384d7bd1bf0f64c6056959ebb5cc0e1be/Preferences.sublime-settings
 fancy_echo ""
 
