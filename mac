@@ -100,14 +100,6 @@ esac
 # Install Oh My Zsh
 fancy_echo "Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-if [ ! -f "$HOME/.oh-my-zsh/themes/roberttaraya.zsh-theme" ]; then
-  fancy_echo "Copying roberttaraya theme from gist..."
-  cd ~/.oh-my-zsh/themes/
-  curl --remote-name https://gist.githubusercontent.com/roberttaraya/0573d75c4ae298e64998/raw/234157c735cfe12c4eefba962d89bb6402642bbb/roberttaraya.zsh-theme
-  fancy_echo "...All good...now just remember to set ZSH_THEME='roberttaraya' in ~/.zshrc"
-else
-  echo "Skipping...the 'roberttaraya' theme already exists"
-fi
 
 brew_is_installed() {
   brew list -1 | grep -Fqx "$1"
@@ -336,5 +328,33 @@ if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
   open /Applications/Docker.app
   fancy_echo "...Docker is running. You're good to go!"
 fi
+
+##
+# Configurations, Settings, & Preferences
+
+if [ ! -f "$HOME/.oh-my-zsh/themes/roberttaraya.zsh-theme" ]; then
+  fancy_echo "Copying roberttaraya.zsh-theme from gist..."
+  cd ~/.oh-my-zsh/themes/
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/0573d75c4ae298e64998/raw/234157c735cfe12c4eefba962d89bb6402642bbb/roberttaraya.zsh-theme
+  fancy_echo "TODO: set ZSH_THEME='roberttaraya' in ~/.zshrc"
+  fancy_echo ""
+else
+  echo "...roberttaraya.zsh-theme already exists..."
+fi
+
+fancy_echo "Copying Solarized Light and Dark themes for terminal..."
+cd ~
+curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Dark.terminal
+curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Light.terminal
+fancy_echo "TODO: to set one of Solarized Light or Solarized Dark as the default, go to your Terminal's "
+fancy_echo "Preferences, click on the Settings tab, scroll down to the Solarized Profile, click on it, then "
+fancy_echo "click the Default button. When you open a new window or tab (or if you quit and relaunch Terminal),"
+fancy_echo "it will use the Solarized theme."
+fancy_echo ""
+
+fancy_echo "Copying Sublime Text Preferences..."
+cd /Users/rtaraya/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
+curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/a5c32f6384d7bd1bf0f64c6056959ebb5cc0e1be/Preferences.sublime-settings
+fancy_echo ""
 
 fancy_echo 'All done!'
