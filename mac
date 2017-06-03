@@ -98,7 +98,12 @@ esac
 
 ##
 # Install Oh My Zsh
+fancy_echo "Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fancy_echo "Copying roberttaraya theme from gist..."
+cd ~/.oh-my-zsh/themes/
+curl --remote-name https://gist.githubusercontent.com/roberttaraya/0573d75c4ae298e64998/raw/234157c735cfe12c4eefba962d89bb6402642bbb/roberttaraya.zsh-theme
+fancy_echo "...All good...now just remember to set ZSH_THEME='roberttaraya' in ~/.zshrc"
 
 brew_is_installed() {
   brew list -1 | grep -Fqx "$1"
