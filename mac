@@ -356,7 +356,7 @@ fancy_echo "Copying Sublime Text Preferences..."
 cd /Users/roberttaraya/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
 curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/a5c32f6384d7bd1bf0f64c6056959ebb5cc0e1be/Preferences.sublime-settings
 curl --remote-name https://gist.githubusercontent.com/roberttaraya/a419cce8290c39b32ba88dbc93bd816f/raw/84c269e73c3c3c3d747cd0a3f098758fb4df148b/Package%2520Control.sublime-settings
-mkdir /SublimeLinter
+sudo mkdir /SublimeLinter
 cd /SublimeLinter
 curl --remote-name https://gist.githubusercontent.com/roberttaraya/f63859c9b65a0c4fa0cbf7f410ad8bd7/raw/9da75c38a4a69a6188a605e52986c32363437635/Solarized%2520(Light)%2520(SL).tmTheme
 curl --remote-name https://gist.githubusercontent.com/roberttaraya/f63859c9b65a0c4fa0cbf7f410ad8bd7/raw/9da75c38a4a69a6188a605e52986c32363437635/Solarized%2520(Dark)%2520(SL).tmTheme
