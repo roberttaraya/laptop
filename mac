@@ -143,7 +143,7 @@ append_to_file "$shell_file" 'export PATH="$HOME/.bin:$PATH"'
 ##
 # Downloading .laptop.local and Brewfile.local
 # NOTE: make sure these files are up-to-date before running this script
-cd ~
+cd
 curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/.laptop.local
 curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/Brewfile.local
 
@@ -334,7 +334,7 @@ fi
 
 if [ ! -f "$HOME/.oh-my-zsh/themes/roberttaraya.zsh-theme" ]; then
   fancy_echo "Copying roberttaraya.zsh-theme from gist..."
-  cd ~/.oh-my-zsh/themes/
+  cd "$HOME/.oh-my-zsh/themes/"
   curl --remote-name https://gist.githubusercontent.com/roberttaraya/0573d75c4ae298e64998/raw/234157c735cfe12c4eefba962d89bb6402642bbb/roberttaraya.zsh-theme
   fancy_echo "TODO: set ZSH_THEME='roberttaraya' in ~/.zshrc"
   fancy_echo ""
@@ -343,17 +343,15 @@ else
 fi
 
 fancy_echo "Copying Solarized Light and Dark themes for terminal..."
-cd ~
+cd
 curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Dark.terminal
 curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Light.terminal
-fancy_echo "TODO: to set one of Solarized Light or Solarized Dark as the default, go to your Terminal's "
-fancy_echo "Preferences, click on the Settings tab, scroll down to the Solarized Profile, click on it, then "
-fancy_echo "click the Default button. When you open a new window or tab (or if you quit and relaunch Terminal),"
-fancy_echo "it will use the Solarized theme."
+fancy_echo "TODO: to set one of Solarized Light or Solarized Dark as the default, go to your Terminal's Preferences, click on the Settings tab, scroll down to the Solarized Profile, click on it, then click the Default button. When you open a new window or tab (or if you quit and relaunch Terminal), it will use the Solarized theme."
 fancy_echo ""
 
 fancy_echo "Copying Sublime Text Preferences..."
-cd /Users/roberttaraya/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
+cd "$HOME/Library/Application Support/Sublime Text 3/Packages/User/"
+curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/a5c32f6384d7bd1bf0f64c6056959ebb5cc0e1be/Preferences.sublime-settings
 fancy_echo ""
 
 fancy_echo 'All done!'
