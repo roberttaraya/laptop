@@ -322,12 +322,12 @@ else
   fancy_echo "...Finished installing Docker"
 fi
 
-fancy_echo "Ensuring Docker is running..."
+#fancy_echo "Ensuring Docker is running..."
 
-if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
-  open /Applications/Docker.app
-  fancy_echo "...Docker is running. You're good to go!"
-fi
+#if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
+#  open /Applications/Docker.app
+#  fancy_echo "...Docker is running. You're good to go!"
+#fi
 
 ##
 # Configurations, Settings, & Preferences
