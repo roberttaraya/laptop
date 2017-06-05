@@ -190,6 +190,13 @@ else
   echo "in which case, you can ignore these errors."
 fi
 
+fancy_echo "Installing node packages..."
+npm install -g polymer-cli
+npm install -g bower
+npm install -g create-react-app
+npm install -g gulp-cli
+npm install -g express-generator
+
 # shellcheck disable=SC2016
 append_to_file "$shell_file" 'eval "$(hub alias -s)"'
 
@@ -322,12 +329,12 @@ else
   fancy_echo "...Finished installing Docker"
 fi
 
-#fancy_echo "Ensuring Docker is running..."
+fancy_echo "Ensuring Docker is running..."
 
-#if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
-#  open /Applications/Docker.app
-#  fancy_echo "...Docker is running. You're good to go!"
-#fi
+if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
+  open /Applications/Docker.app
+  fancy_echo "...Docker is running. You're good to go!"
+fi
 
 ##
 # Configurations, Settings, & Preferences
