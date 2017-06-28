@@ -358,7 +358,7 @@ fancy_echo ""
 
 fancy_echo "Copying Sublime Text Preferences..."
 cd "$HOME/Library/Application Support/Sublime Text 3/Packages/User/"
-curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/a5c32f6384d7bd1bf0f64c6056959ebb5cc0e1be/Preferences.sublime-settings
+curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/7ec320ce3684817cf83710bf45bd4b3020ad7902/Preferences.sublime-settings
 fancy_echo ""
 
 fancy_echo 'All done!'
