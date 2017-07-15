@@ -74,6 +74,7 @@ What it sets up
 * [Homebrew Cask] for quickly installing Mac apps from the command line
 * [Homebrew Services] so you can easily stop, start, and restart services
 * [hub] for interacting with the GitHub API
+* [nvm] for managing Node.js versions if you do not have [Node.js] already installed (Includes latest [Node.js] and [NPM], for running apps and installing JavaScript packages)
 * [PhantomJS] for headless website testing
 * [Postgres] for storing relational data
 * [ruby-install] for installing different versions of Ruby
@@ -90,6 +91,9 @@ What it sets up
 [Homebrew Cask]: http://caskroom.io/
 [Homebrew Services]: https://github.com/Homebrew/homebrew-services
 [hub]: https://github.com/github/hub
+[nvm]: https://github.com/creationix/nvm
+[Node.js]: http://nodejs.org/
+[NPM]: https://www.npmjs.org/
 [PhantomJS]: http://phantomjs.org/
 [Postgres]: http://www.postgresql.org/
 [Ruby]: https://www.ruby-lang.org/en/
