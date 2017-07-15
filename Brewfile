@@ -26,3 +26,6 @@ brew 'hub'
 # Programming languages and package managers
 brew 'node'
 brew 'yarn'
+
+# Interpreter for PostScript and PDF
+brew 'ghostscript'
