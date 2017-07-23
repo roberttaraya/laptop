@@ -215,11 +215,20 @@ fi
 fancy_echo '...Finished Node.js installation checks.'
 
 fancy_echo "Installing global node packages..."
+fancy_echo "...polymer-cli..."
 npm install -g polymer-cli
+fancy_echo "...bower..."
 npm install -g bower
+fancy_echo "...create-react-app..."
 npm install -g create-react-app
+fancy_echo "...getstorybook..."
+npm install -g getstorybook
+fancy_echo "...gulp-cli..."
 npm install -g gulp-cli
+fancy_echo "...express-generator..."
 npm install -g express-generator
+
+fancy_echo "...finished installing global node packages."
 
 # shellcheck disable=SC2016
 append_to_file "$shell_file" 'eval "$(hub alias -s)"'
