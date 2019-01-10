@@ -8,7 +8,7 @@ brew 'git'
 brew 'openssl'
 
 # Heroku
-brew 'heroku-toolbelt'
+brew 'heroku/brew/heroku'
 brew 'parity'
 
 # Databases
