@@ -21,7 +21,7 @@ brew 'mysql', restart_service: true
 brew 'phantomjs'
 
 # Github
-cask 'github-desktop'
+cask 'github'
 brew 'hub'
 
 # Programming languages and package managers
