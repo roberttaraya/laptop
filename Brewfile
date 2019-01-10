@@ -18,7 +18,7 @@ brew 'redis', restart_service: true
 brew 'mysql', restart_service: true
 
 # Testing
-brew 'phantomjs'
+cask 'phantomjs'
 
 # Github
 cask 'github'
