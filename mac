@@ -7,7 +7,6 @@
 fancy_echo() {
   local fmt="$1"; shift
 
-  # shellcheck disable=SC2059
   printf "\n$fmt\n" "$@"
 }
 
@@ -20,33 +19,6 @@ append_to_file() {
   fi
 }
 
-create_zshrc_and_set_it_as_shell_file() {
-  if [ ! -f "$HOME/.zshrc" ]; then
-    touch "$HOME/.zshrc"
-  fi
-
-  shell_file="$HOME/.zshrc"
-}
-
-create_bash_profile_and_set_it_as_shell_file() {
-  if [ ! -f "$HOME/.bash_profile" ]; then
-    touch "$HOME/.bash_profile"
-  fi
-
-  shell_file="$HOME/.bash_profile"
-}
-
-change_shell_to_zsh() {
-  fancy_echo "Please enter your password to continue."
-  echo "Note that there won't be visual feedback when you type your password."
-  echo "Type it slowly and press return, or press control-c to cancel the switch to zsh and exit the script."
-  create_zshrc_and_set_it_as_shell_file
-  chsh -s "$(which zsh)"
-  echo "Note that you can always switch back to ${bold}bash${normal} if you change your mind."
-  echo "The instructions for changing shells manually are available in the README."
-}
-
-# shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 
 set -e
@@ -55,58 +27,35 @@ if [ ! -d "$HOME/.bin/" ]; then
   mkdir "$HOME/.bin"
 fi
 
-case "$SHELL" in
-  */zsh) :
-    create_zshrc_and_set_it_as_shell_file
-    ;;
-  *)
-    create_bash_profile_and_set_it_as_shell_file
-    if [ -z "$CI" ]; then
-      bold=$(tput bold)
-      normal=$(tput sgr0)
-      echo "Want to switch your shell from the default ${bold}bash${normal} to ${bold}zsh${normal}?"
-      echo "Both work fine for development, and ${bold}zsh${normal} has some extra "
-      echo "features for customization and tab completion."
-      echo "If you aren't sure or don't care, we recommend ${bold}zsh${normal}."
-      echo -n "Press ${bold}y${normal} to switch to zsh, ${bold}n${normal} to keep bash: "
-      read -r -n 1 response
-      if [ "$response" = "y" ]; then
-        fancy_echo "=== Getting ready to change your shell to zsh. ==="
-        if ! grep -qs "$(which zsh)" /etc/shells; then
-          echo "It looks like your version of zsh is missing from ${bold}/etc/shells${normal}."
-          echo "It must be added there manually before your shell can be changed."
-          echo "Open ${bold}/etc/shells${normal} with your favorite text editor,"
-          echo "then add ${bold}$(which zsh)${normal} in a new line and save the file."
-          echo -n "Once you've added it, press ${bold}y${normal} to continue, or ${bold}n${normal} to cancel: "
-          read -r -n 1 response
-          if [ "$response" = "y" ]; then
-            change_shell_to_zsh
-          else
-            fancy_echo "Shell will not be changed."
-          fi
-        else
-          change_shell_to_zsh
-        fi
-      else
-        fancy_echo "Shell will not be changed."
-      fi
-    else
-      fancy_echo "CI System detected, will not change shells"
-    fi
-    ;;
-esac
+if [ ! -d "$HOME/.oh-my-zsh/" ]; then
+  ##
+  # Install Oh My Zsh
+  fancy_echo 'Installing Oh My Zsh...'
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+else
+  fancy_echo 'Oh My Zsh is already installed'
+fi
 
-##
-# Install Oh My Zsh
-fancy_echo "Installing Oh My Zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+shell_file="$HOME/.zshrc"
+
+if [ ! -f "$HOME/.oh-my-zsh/themes/roberttaraya.zsh-theme" ]; then
+  fancy_echo 'Copying roberttaraya.zsh-theme from gist...'
+  cd "$HOME/.oh-my-zsh/themes/"
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/0573d75c4ae298e64998/raw/234157c735cfe12c4eefba962d89bb6402642bbb/roberttaraya.zsh-theme
+else
+  fancy_echo 'roberttaraya.zsh-theme already exists. Skipping...'
+fi
+
+fancy_echo "Setting Zshrc..."
+cd
+curl --remote-name https://gist.githubusercontent.com/roberttaraya/ca2ad3a47f0bed3b0d29/raw/747e0a145ae72f4c7feab54ffe6d4de785ef5c94/.zshrc
 
 brew_is_installed() {
-  brew list -1 | grep -Fqx "$1"
+  brew list -1 | grep -Fsx "$1"
 }
 
 tap_is_installed() {
-  brew tap -1 | grep -Fqx "$1"
+  brew tap -1 | grep -Fsx "$1"
 }
 
 gem_install_or_update() {
@@ -130,34 +79,21 @@ latest_installed_ruby() {
 }
 
 switch_to_latest_ruby() {
-  # shellcheck disable=SC1091
-  . /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/chruby.sh
   chruby "ruby-$(latest_installed_ruby)"
 }
 
 append_to_file "$shell_file" "alias laptop='bash <(curl -s https://raw.githubusercontent.com/roberttaraya/laptop/master/laptop)'"
-
-# shellcheck disable=SC2016
 append_to_file "$shell_file" 'export PATH="$HOME/.bin:$PATH"'
-
-##
-# Downloading .laptop.local and Brewfile.local
-# NOTE: make sure these files are up-to-date before running this script
-cd
-curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/.laptop.local
-curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/Brewfile.local
 
 ##
 # Install & update Homebrew
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
-    curl -fsS \
-      'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
-
-    # shellcheck disable=SC2016
-    append_to_file "$shell_file" 'export PATH="/usr/local/bin:$PATH"'
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  append_to_file "$shell_file" 'export PATH="/usr/local/bin:$PATH"'
 else
-  fancy_echo "Homebrew already installed. Skipping ..."
+  fancy_echo 'Homebrew already installed. Skipping ...'
 fi
 
 # Remove brew-cask since it is now installed as part of brew tap caskroom/cask.
@@ -170,187 +106,126 @@ if tap_is_installed 'caskroom/versions'; then
   brew untap caskroom/versions
 fi
 
-fancy_echo "Updating Homebrew ..."
+fancy_echo 'Updating Homebrew ...'
 cd "$(brew --repo)" && git fetch && git reset --hard origin/master && brew update
+cd
 
-fancy_echo "Verifying the Homebrew installation..."
+fancy_echo 'Verifying the Homebrew installation...'
 if brew doctor; then
-  fancy_echo "Your Homebrew installation is good to go."
+  fancy_echo 'Your Homebrew installation is good to go.'
 else
-  fancy_echo "Your Homebrew installation reported some errors or warnings."
-  echo "Review the Homebrew messages to see if any action is needed."
+  fancy_echo 'Your Homebrew installation reported some errors or warnings.'
+  fancy_echo 'Review the Homebrew messages to see if any action is needed.'
 fi
 
-fancy_echo "Installing formulas and casks from the Brewfile ..."
+fancy_echo 'Installing formulas and casks from the Brewfile ...'
 if brew bundle --file="$HOME/Brewfile"; then
-  fancy_echo "All formulas and casks were installed successfully."
+  fancy_echo 'All formulas and casks were installed successfully.'
 else
-  fancy_echo "Some formulas or casks failed to install."
-  echo "This is usually due to one of the Mac apps being already installed,"
-  echo "in which case, you can ignore these errors."
+  fancy_echo 'Some formulas or casks failed to install.'
+  fancy_echo 'This is usually due to one of the Mac apps being already'
+  fancy_echo 'installed, in which case, you can ignore these errors.'
 fi
 
+
+##
+# Install Node, nvm
 fancy_echo 'Checking on Node.js installation...'
 
-if ! brew_is_installed "node"; then
-  if command -v n > /dev/null; then
-    fancy_echo "We recommend using \`nvm\` and not \`n\`."
-    fancy_echo "See https://pages.18f.gov/frontend/#install-npm"
-  elif ! command -v nvm > /dev/null; then
-    fancy_echo 'Installing nvm and lts Node.js and npm...'
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-    export NVM_DIR="$HOME/.nvm"
-    # shellcheck source=/dev/null
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm install node --lts
-  else
-    fancy_echo 'version manager detected.  Skipping...'
-  fi
+if ! brew_is_installed 'nvm'; then
+  fancy_echo 'Installing nvm...'
+  brew install nvm
 else
-  brew bundle --file=- <<EOF
-  brew 'node'
-EOF
+  fancy_echo 'nvm already installed. Skipping...'
+fi
+
+if ! command -v nvm > /dev/null; then
+  source /usr/local/opt/nvm/nvm.sh
+  append_to_file "$shell_file" 'source /usr/local/opt/nvm/nvm.sh'
+fi
+
+if ! command -v node > /dev/null; then
+  fancy_echo 'Installing Node.js...'
+  nvm install node
+else
+  fancy_echo 'Node.js already installed. Skipping...'
 fi
 
 fancy_echo '...Finished Node.js installation checks.'
 
-fancy_echo "Installing global node packages..."
-fancy_echo "...polymer-cli..."
-npm install -g polymer-cli
-fancy_echo "...bower..."
-npm install -g bower
-fancy_echo "...create-react-app..."
-npm install -g create-react-app
-fancy_echo "...getstorybook..."
-npm install -g getstorybook
-fancy_echo "...gulp-cli..."
-npm install -g gulp-cli
-fancy_echo "...express-generator..."
-npm install -g express-generator
-
-fancy_echo "...finished installing global node packages."
-
-# shellcheck disable=SC2016
-append_to_file "$shell_file" 'eval "$(hub alias -s)"'
-
 append_to_file "$HOME/.gemrc" 'gem: --no-document'
+
 
 ##
 # Install Ruby, chruby
-if command -v rbenv >/dev/null || command -v rvm >/dev/null; then
-  fancy_echo 'We recommend chruby and ruby-install over RVM or rbenv'
+if ! brew_is_installed 'chruby'; then
+  fancy_echo 'Installing chruby...'
+  brew install chruby
 else
-  if ! brew_is_installed "chruby"; then
-    fancy_echo 'Installing chruby, ruby-install, and the latest Ruby...'
-
-    brew bundle --file=- <<EOF
-    brew 'chruby'
-    brew 'ruby-install'
-EOF
-
-    append_to_file "$shell_file" 'source /usr/local/share/chruby/chruby.sh'
-    append_to_file "$shell_file" 'source /usr/local/share/chruby/auto.sh'
-
-    ruby-install ruby
-
-    append_to_file "$shell_file" "chruby ruby-$(latest_installed_ruby)"
-
-    switch_to_latest_ruby
-  else
-    brew bundle --file=- <<EOF
-    brew 'chruby'
-    brew 'ruby-install'
-EOF
-    fancy_echo 'Checking if a newer version of Ruby is available...'
-    switch_to_latest_ruby
-
-    ruby-install --latest > /dev/null
-    latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
-
-    if ! [ "$latest_stable_ruby" = "$(latest_installed_ruby)" ]; then
-      fancy_echo "Installing latest stable Ruby version: $latest_stable_ruby"
-      ruby-install ruby
-    else
-      fancy_echo 'You have the latest version of Ruby'
-    fi
-  fi
+  fancy_echo 'chruby already installed. Skipping...'
 fi
+
+if ! brew_is_installed 'ruby-install'; then
+  fancy_echo 'Installing ruby-install...'
+  brew install ruby-install
+  ruby-install ruby
+else
+  fancy_echo 'ruby-install already installed. Skipping...'
+fi
+
+latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
+if ! [ "$latest_stable_ruby" = "$(latest_installed_ruby)" ]; then
+  fancy_echo "Installing latest stable Ruby version: $latest_stable_ruby"
+  ruby-install ruby
+else
+  fancy_echo 'You have the latest version of Ruby'
+fi
+
+if ! command -v chruby > /dev/null; then
+  append_to_file "$shell_file" 'source /usr/local/share/chruby/chruby.sh'
+  append_to_file "$shell_file" 'source /usr/local/share/chruby/auto.sh'
+  append_to_file "$shell_file" "chruby ruby-$(latest_installed_ruby)"
+fi
+switch_to_latest_ruby
+
 
 ##
 # Install & update Rubygems
 fancy_echo 'Updating Rubygems...'
 gem update --system
 
+fancy_echo 'Installing or updating Bundler...'
 gem_install_or_update 'bundler'
 
-fancy_echo "Configuring Bundler ..."
+fancy_echo 'Configuring Bundler...'
 number_of_cores=$(sysctl -n hw.ncpu)
 bundle config --global jobs $((number_of_cores - 1))
 
+fancy_echo 'Installing Rails...'
+gem install rails
+
+fancy_echo 'Installing Jekyll...'
+gem install jekyll
+
 fancy_echo '...Finished Ruby installation checks.'
 
-no_prompt_customizations_in_shell_file() {
-  ! grep -qs -e "PS1=" -e "precmd" -e "PROMPT=" "$shell_file"
-}
-
-no_zsh_frameworks() {
-  [ ! -d "$HOME/.oh-my-zsh" ] && [ ! -d "$HOME/.zpresto" ] && [ ! -d "$HOME/.zim" ] && [ ! -d "$HOME/.zplug" ]
-}
-
-##
-# Customize terminal prompt
-if [ -z "$CI" ] && no_zsh_frameworks && no_prompt_customizations_in_shell_file; then
-  echo -n "Would you like to customize your prompt to display the current directory and ruby version? [y/n]: "
-  read -r -n 1 response
-  if [ "$response" = "y" ]; then
-    if ! grep -qs "prompt_ruby_info()" "$shell_file"; then
-      cat <<EOT >> "$shell_file"
-
-  prompt_ruby_info() {
-    if [ -f ".ruby-version" ]; then
-      cat .ruby-version
-    fi
-  }
-EOT
-    fi
-    # shellcheck disable=SC2016
-    append_to_file "$shell_file" 'GREEN=$(tput setaf 65)'
-    # shellcheck disable=SC2016
-    append_to_file "$shell_file" 'ORANGE=$(tput setaf 166)'
-    # shellcheck disable=SC2016
-    append_to_file "$shell_file" 'NORMAL=$(tput sgr0)'
-    # display pwd in orange, current ruby version in green,
-    # and set prompt character to $
-    # shellcheck disable=SC2016
-    append_to_file "$shell_file" 'precmd () { PS1="${ORANGE}[%~] ${GREEN}$(prompt_ruby_info) ${NORMAL}$ " }'
-    # display directories and files in different colors when running ls
-    append_to_file "$shell_file" 'export CLICOLOR=1;'
-    append_to_file "$shell_file" 'export LSCOLORS=exfxcxdxbxegedabagacad;'
-  else
-    fancy_echo "Skipping prompt customization."
-  fi
-fi
 
 ##
 # Install Github app
 if app_is_installed 'GitHub'; then
   fancy_echo "It looks like you've already configured your GitHub SSH keys."
-  fancy_echo "If not, you can do it by signing in to the GitHub app on your Mac."
+  fancy_echo 'If not, you can do it by signing in to the GitHub app on your Mac.'
 elif [ ! -f "$HOME/.ssh/github_rsa.pub" ]; then
   open ~/Applications/GitHub\ Desktop.app
 fi
 
-if [ -f "$HOME/.laptop.local" ]; then
-  # shellcheck source=/dev/null
-  . "$HOME/.laptop.local"
-fi
 
 ##
 # Install & run Docker for Mac
 if app_is_installed 'Docker'; then
-  fancy_echo "Looks like Docker is already installed..."
+  fancy_echo 'Docker already installed. Skipping...'
 else
-  fancy_echo "Installing Docker..."
+  fancy_echo 'Installing Docker...'
   docker_url=https://download.docker.com/mac/stable/Docker.dmg
   docker_dmg=/tmp/Docker.dmg
   docker_volume=/Volumes/Docker
@@ -359,39 +234,77 @@ else
   cp -a $docker_volume/Docker.app /Applications/
   hdiutil detach $docker_volume > /dev/null
   rm -f $docker_dmg
-  fancy_echo "...Finished installing Docker"
+  fancy_echo '...Finished installing Docker'
 fi
 
-fancy_echo "Ensuring Docker is running..."
+fancy_echo 'Ensuring Docker is running...'
 
 if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
   open /Applications/Docker.app
   fancy_echo "...Docker is running. You're good to go!"
+else
+  fancy_echo 'TODO: Something is wrong with Docker. Needs troubleshooting...'
 fi
+
 
 ##
 # Configurations, Settings, & Preferences
-
-if [ ! -f "$HOME/.oh-my-zsh/themes/roberttaraya.zsh-theme" ]; then
-  fancy_echo "Copying roberttaraya.zsh-theme from gist..."
-  cd "$HOME/.oh-my-zsh/themes/"
-  curl --remote-name https://gist.githubusercontent.com/roberttaraya/0573d75c4ae298e64998/raw/234157c735cfe12c4eefba962d89bb6402642bbb/roberttaraya.zsh-theme
-  fancy_echo "TODO: set ZSH_THEME='roberttaraya' in ~/.zshrc"
-  fancy_echo ""
+if [ ! -f "$HOME/Library/Application Support/iTerm2/com.googlecode.iterm2.plist" ]; then
+  fancy_echo 'Copying iterm2 Preferences...'
+  cd "$HOME/Library/Application Support/iTerm2/"
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/d927550c4502bc31d7e1a4d558cbce95/raw/2c740685a80d25d100e2166dfd0ebbd5f9d80e6b/com.googlecode.iterm2.plist
+  fancy_echo "TODO: Go to iterm2 settings to load preferences manually: ~/Library/Application Support/iTerm2/"
 else
-  echo "...roberttaraya.zsh-theme already exists..."
+  fancy_echo 'iterm2 Preferences already copied from gist. Skipping...'
 fi
 
-fancy_echo "Copying Solarized Light and Dark themes for terminal..."
-cd
-curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Dark.terminal
-curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Light.terminal
-fancy_echo "TODO: to set one of Solarized Light or Solarized Dark as the default, go to your Terminal's Preferences, click on the Settings tab, scroll down to the Solarized Profile, click on it, then click the Default button. When you open a new window or tab (or if you quit and relaunch Terminal), it will use the Solarized theme."
-fancy_echo ""
 
-fancy_echo "Copying Sublime Text Preferences..."
-cd "$HOME/Library/Application Support/Sublime Text 3/Packages/User/"
-curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/7ec320ce3684817cf83710bf45bd4b3020ad7902/Preferences.sublime-settings
-fancy_echo ""
+fancy_echo 'Setting up Sublime Text...'
+if [ ! -f "$HOME/Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings" ]; then
+  fancy_echo 'Copying Sublime Text Preferences...'
+  cd "$HOME/Library/Application Support/Sublime Text/Packages/User/"
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/39778896c203977b8984/raw/9d3dd75238add1d9a770b91b804885eae45f710a/Preferences.sublime-settings
+else
+  fancy_echo 'Sublime Text preferences already set. Skipping...'
+fi
+
+if ! command -v subl >/dev/null; then
+  fancy_echo '...creating a symbolic link for subl...'
+  ln -s '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' /usr/local/bin/subl
+fi
+
+
+fancy_echo 'Setting up VS Code...'
+if [ ! -d "$HOME/Library/Application Support/Code/User/" ]; then
+  open /Applications/Visual\ Studio\ Code.app
+fi
+
+if [ ! -f "$HOME/Library/Application Support/Code/User/keybindings.json" ]; then
+  fancy_echo 'Copying VS Code Keybinding Preferences...'
+  cd "$HOME/Library/Application Support/Code/User/"
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/2fbfbe56ecb842b45586fba093693c37/raw/1a5da2feff3eea1a44cc291deec977eb09a7e4c6/keybindings.json
+else
+  fancy_echo 'VS Code Keybinding Preferences already set. Skipping...'
+fi
+
+if [ ! -f "$HOME/Library/Application Support/Code/User/settings.json" ]; then
+  fancy_echo 'Copying VS Code Editor Settings...'
+  cd "$HOME/Library/Application Support/Code/User/"
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/f9afb3b59a5dbb4df4fc9d35865dbe05/raw/0270fa667431c9f09d84cb549f5ed334f1e0fbb3/settings.json
+else
+  fancy_echo 'VS Code editor settings already set. Skipping...'
+fi
+
+if ! command -v code >/dev/null; then
+  fancy_echo '...creating a symbolic link for VS Code...'
+  ln -s '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' /usr/local/bin/code
+fi
+
+if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
+  cd
+  curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/laptop_setup_todo_list.md
+  open /Applications/MacDown.app laptop_setup_todo_list.md
+fi
 
 fancy_echo 'All done!'
+exec zsh

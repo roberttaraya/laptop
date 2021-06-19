@@ -13,19 +13,6 @@ easily [customize](#customize-in-laptoplocal) the script to install additional
 tools. To see an example of a more advanced script, check out
 [18F/laptop](https://github.com/18F/laptop).
 
-Requirements
-------------
-
-I support clean installations of these operating systems:
-
-* [macOS Sierra](https://www.apple.com/macos/sierra/) (10.12)
-* OS X El Capitan (10.11)
-* OS X Yosemite (10.10)
-* OS X Mavericks (10.9)
-
-Older versions may work but aren't regularly tested. Bug reports for older
-versions are welcome.
-
 Install
 -------
 
@@ -67,38 +54,34 @@ What it sets up
 
 * [Bundler] for managing Ruby gems
 * [chruby] for managing [Ruby] versions
-* [Flux] for adjusting your Mac's display color so you can sleep better
 * [GitHub Desktop] for setting up your SSH keys automatically
 * [Heroku Toolbelt] for deploying and managing Heroku apps
 * [Homebrew] for managing operating system libraries
 * [Homebrew Cask] for quickly installing Mac apps from the command line
 * [Homebrew Services] so you can easily stop, start, and restart services
-* [hub] for interacting with the GitHub API
 * [nvm] for managing Node.js versions if you do not have [Node.js] already installed (Includes latest [Node.js] and [NPM], for running apps and installing JavaScript packages)
-* [PhantomJS] for headless website testing
 * [Postgres] for storing relational data
 * [ruby-install] for installing different versions of Ruby
 * [Sublime Text 3] for coding all the things
-* [Zsh] as your shell (if you opt in)
+* [VS Code] for coding all the things
+* [Zsh] as your shell
 * [Docker for Mac] desktop app for building, debugging, and testing Dockerized apps on a Mac
 
 [Bundler]: http://bundler.io/
 [chruby]: https://github.com/postmodern/chruby
-[Flux]: https://justgetflux.com/
 [GitHub Desktop]: https://desktop.github.com/
 [Heroku Toolbelt]: https://toolbelt.heroku.com/
 [Homebrew]: http://brew.sh/
 [Homebrew Cask]: http://caskroom.io/
 [Homebrew Services]: https://github.com/Homebrew/homebrew-services
-[hub]: https://github.com/github/hub
 [nvm]: https://github.com/creationix/nvm
 [Node.js]: http://nodejs.org/
 [NPM]: https://www.npmjs.org/
-[PhantomJS]: http://phantomjs.org/
 [Postgres]: http://www.postgresql.org/
 [Ruby]: https://www.ruby-lang.org/en/
 [ruby-install]: https://github.com/postmodern/ruby-install
 [Sublime Text 3]: http://www.sublimetext.com/3
+[VS Code]: https://code.visualstudio.com
 [Zsh]: http://www.zsh.org/
 [Docker for Mac]: https://www.docker.com/docker-mac
 
@@ -111,8 +94,6 @@ green, and sets the prompt character to `$`. It also allows you to easily
 distinguish directories from files when running `ls` by displaying directories
 in a different color. Below is a screenshot showing what the colors look like
 when using the default Terminal white background, the Solarized Dark theme, and the Solarized Light theme.
-
-![Terminal screenshots](http://cl.ly/image/19022S0q3H1b/download/Image%202015-05-12%20at%2011.31.04%20PM.png)
 
 If you want to use the [Solarized](http://ethanschoonover.com/solarized)
 themes, run the following commands in your Terminal:
@@ -143,45 +124,6 @@ Then in the line that starts with `precmd`, replace `{166}` and `{65}` with
 any of the 256 possible [Xterm colors](http://upload.wikimedia.org/wikipedia/commons/9/95/Xterm_color_chart.png).
 Save the file, then open a new Terminal window or tab to see the changes.
 
-
-Customize in `~/.laptop.local` and `~/Brewfile.local`
------------------------------------------------------
-```sh
-# Go to your OS X user's root directory
-cd ~
-
-# Download the sample files to your computer
-curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/.laptop.local
-curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/Brewfile.local
-
-# open the files in Sublime Text
-subl .laptop.local
-subl Brewfile.local
-```
-
-Your `~/.laptop.local` is run at the end of the `mac` script.
-Put your customizations there. If you want to install additional
-tools or Mac apps with Homebrew, add them to your `~/Brewfile.local`.
-You can use the `.laptop.local` and `Brewfile.local` you downloaded
-above to get started. It lets you install the following tools and Mac apps:
-
-* [Atom] - GitHub's open source text editor
-* [CloudApp] for sharing screenshots and making an animated GIF from a video
-* [Firefox] for testing your Rails app on a browser other than Chrome or Safari
-* [iTerm2] - an awesome replacement for the OS X Terminal
-* [Redis] for storing key-value data
-
-[Atom]: https://atom.io/
-[CloudApp]: http://getcloudapp.com/
-[Firefox]: https://www.mozilla.org/en-US/firefox/new/
-[iTerm2]: http://iterm2.com/
-[Redis]: http://redis.io/
-
-Write your customizations such that they can be run safely more than once.
-See the `mac` script for examples.
-
-Laptop functions such as `fancy_echo`, and `gem_install_or_update` can be used
-in your `~/.laptop.local`.
 
 How to manage background services (such as Postgres)
 ----------------------------------------------------------

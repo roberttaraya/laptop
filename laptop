@@ -1,6 +1,7 @@
 #!/bin/sh
 
 cd ~
+rm mac Brewfile
 curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/mac
 curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/Brewfile
 /usr/bin/env bash mac 2>&1 | tee ~/laptop.log
