@@ -48,7 +48,7 @@ fi
 
 fancy_echo "Setting Zshrc..."
 cd
-curl --remote-name https://gist.githubusercontent.com/roberttaraya/ca2ad3a47f0bed3b0d29/raw/747e0a145ae72f4c7feab54ffe6d4de785ef5c94/.zshrc
+curl --remote-name https://gist.githubusercontent.com/roberttaraya/ca2ad3a47f0bed3b0d29/raw/2fb4ecf31e809d22787a9530676dce3c4e978ad2/.zshrc
 
 brew_is_installed() {
   brew list -1 | grep -Fsx "$1"
@@ -304,6 +304,23 @@ if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
   cd
   curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/laptop_setup_todo_list.md
   open /Applications/MacDown.app laptop_setup_todo_list.md
+fi
+
+if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
+  fancy_echo "...copying .gitconfig"
+  cd
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/e1f85f06e1359ea0b7d7/raw/9aba1578a47f2d9a14133dd8ef906e5c31f45f68/.gitconfig
+fi
+
+if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
+  fancy_echo "...copying .gitignore_global"
+  cd
+  curl --remote-name https://gist.githubusercontent.com/roberttaraya/ae1580de25ff4859c0b5d3a2cbeca0a3/raw/d71de712ddcc1b50cae906b90b590c0ffa39a9fa/.gitignore_global
+fi
+
+fancy_echo '...creating a working directory for your code...'
+if [ ! -d "$HOME/Workspace/" ]; then
+  mkdir "$HOME/Workspace"
 fi
 
 fancy_echo 'All done!'

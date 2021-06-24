@@ -26,6 +26,10 @@
 ## Battery Icon
 * show percentage
 
+## Screenshot location and file type
+* `cmd+shift+5` and click Options, select Other Location, click Documents, click New Folder, type Screenshots, click Create, click Choose
+* in terminal type `defaults write com.apple.screencapture type JPG`
+
 ## iTerm2 > Preferences > General > Preferences
 * check `Load preferences from a custom folder or URL`
 * enter `/Users/roberttaraya/Library/Application Support/iTerm2`
