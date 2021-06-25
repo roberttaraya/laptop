@@ -79,6 +79,9 @@ cask "cloudapp"
 # API documentation browser and code snippet manager
 cask "dash"
 
+# VPN client for secure internet access and private browsing
+cask "expressvpn"
+
 # Web browser
 cask "firefox"
 
@@ -87,6 +90,12 @@ cask "firefox"
 
 # Back up and sync files with Google Drive
 cask "google-backup-and-sync"
+
+# Google Chat replaces Google Hangouts
+cask "google-chat"
+
+# Web browser
+cask "google-chrome"
 
 # Google Photos Backup And Sync
 #cask "google-photos-backup-and-sync"

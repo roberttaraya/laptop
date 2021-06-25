@@ -1,7 +1,13 @@
 # Laptop Setup TODO
 
+## Setup New SSH Keys
+[create new ssh key](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+[add your new ssh key to github](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+
+
 ## Finder > Preferences > Sidebar
-* check Home (roberttaraya) directory
+* check Home (roberttaraya) directory (and other directories as needed)
 
 ## System Preferences - Desktop & Screen Saver
 * check `Show with clock`
@@ -9,7 +15,8 @@
 ## System Preferences - Dock
 * remove unnecessary app icons
 * add needed app icons
-* remove recent applications from Doc
+* remove recent applications from Dock
+* automatically hide and show the Dock
 
 ## System Preferences - Mission Control
 * uncheck `Automatically rearrange...`
@@ -32,20 +39,32 @@
 
 ## iTerm2 > Preferences > General > Preferences
 * check `Load preferences from a custom folder or URL`
-* enter `/Users/roberttaraya/Library/Application Support/iTerm2`
+* enter `~/Library/Application Support/iTerm2/`
 * quit iTerm2
 * open iTerm2
 
 ## Spectacle > Preferences
+* open spectacle. on first start, will need to give access to computer.
 * check `Launch at login`
+
+## Open LastPass
+* log in
+
+## Setup Chrome
+* open Chrome
+* set as default browser
+* turn on sync (will install all extensions)
+
+## Setup Google Drive
+* open Backup and Sync from Google
 
 ## Sublime Text Setup
 * open sublime
 * `cmd + shift + p`
-* type `install package control`
+* type `install package control`. select. click ok.
 * install these packages:
 	* `GitGutter`
-	* `Side Bar Enhancements`
+	* `SideBarEnhancements`
 	* `Advanced New File`
 * copy app license text and enter to app
 

@@ -27,6 +27,14 @@ if [ ! -d "$HOME/.bin/" ]; then
   mkdir "$HOME/.bin"
 fi
 
+if ! command -v xcode-select -p >/dev/null; then
+#if [ ! -d "$HOME/Library/Developer/CommandLineTools/" ]; then
+  fancy_echo "No Command Line Tools found. Installing Xcode..."
+  xcode-select --install
+else
+  fancy_echo "Xcode installed. Skipping..."
+fi
+
 if [ ! -d "$HOME/.oh-my-zsh/" ]; then
   ##
   # Install Oh My Zsh
@@ -48,7 +56,7 @@ fi
 
 fancy_echo "Setting Zshrc..."
 cd
-curl --remote-name https://gist.githubusercontent.com/roberttaraya/ca2ad3a47f0bed3b0d29/raw/2fb4ecf31e809d22787a9530676dce3c4e978ad2/.zshrc
+curl --remote-name https://gist.githubusercontent.com/roberttaraya/ca2ad3a47f0bed3b0d29/raw/33e80a8e452959ac40f16228c680beab79d36956/.zshrc
 
 brew_is_installed() {
   brew list -1 | grep -Fsx "$1"
@@ -171,6 +179,11 @@ if ! brew_is_installed 'ruby-install'; then
   ruby-install ruby
 else
   fancy_echo 'ruby-install already installed. Skipping...'
+
+  if [ ! -d "$HOME/.rubies/" ]; then
+    fancy_echo "Installing latest stable Ruby version..."
+    ruby-install ruby
+  fi
 fi
 
 latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
@@ -211,22 +224,12 @@ fancy_echo '...Finished Ruby installation checks.'
 
 
 ##
-# Install Github app
-#if app_is_installed 'GitHub'; then
-#  fancy_echo "It looks like you've already configured your GitHub SSH keys."
-#  fancy_echo 'If not, you can do it by signing in to the GitHub app on your Mac.'
-#elif [ ! -f "$HOME/.ssh/github_rsa.pub" ]; then
-#  open ~/Applications/GitHub\ Desktop.app
-#fi
-
-
-##
 # Install & run Docker for Mac
 if app_is_installed 'Docker'; then
   fancy_echo 'Docker already installed. Skipping...'
 else
   fancy_echo 'Installing Docker...'
-  docker_url=https://download.docker.com/mac/stable/Docker.dmg
+  docker_url=https://desktop.docker.com/mac/stable/amd64/Docker.dmg
   docker_dmg=/tmp/Docker.dmg
   docker_volume=/Volumes/Docker
   curl -s -o $docker_dmg $docker_url
@@ -235,20 +238,24 @@ else
   hdiutil detach $docker_volume > /dev/null
   rm -f $docker_dmg
   fancy_echo '...Finished installing Docker'
-fi
 
-fancy_echo 'Ensuring Docker is running...'
+  fancy_echo 'Ensuring Docker is running...'
 
-if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
-  open /Applications/Docker.app
-  fancy_echo "...Docker is running. You're good to go!"
-else
-  fancy_echo 'TODO: Something is wrong with Docker. Needs troubleshooting...'
+  if ! /usr/local/bin/docker ps > "$tmp_output" 2>&1; then
+    open /Applications/Docker.app
+    fancy_echo "...Docker is running. You're good to go!"
+  else
+    fancy_echo 'TODO: Something is wrong with Docker. Needs troubleshooting...'
+  fi
 fi
 
 
 ##
 # Configurations, Settings, & Preferences
+if [ ! -d "$HOME/Library/Application Support/iTerm2/" ]; then
+  mkdir -p "$HOME/Library/Application Support/iTerm2/"
+fi
+
 if [ ! -f "$HOME/Library/Application Support/iTerm2/com.googlecode.iterm2.plist" ]; then
   fancy_echo 'Copying iterm2 Preferences...'
   cd "$HOME/Library/Application Support/iTerm2/"
@@ -260,6 +267,10 @@ fi
 
 
 fancy_echo 'Setting up Sublime Text...'
+if [ ! -d "$HOME/Library/Application Support/Sublime Text/Packages/User/" ]; then
+  mkdir -p "$HOME/Library/Application Support/Sublime Text/Packages/User/"
+fi
+
 if [ ! -f "$HOME/Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings" ]; then
   fancy_echo 'Copying Sublime Text Preferences...'
   cd "$HOME/Library/Application Support/Sublime Text/Packages/User/"
@@ -276,7 +287,8 @@ fi
 
 fancy_echo 'Setting up VS Code...'
 if [ ! -d "$HOME/Library/Application Support/Code/User/" ]; then
-  open /Applications/Visual\ Studio\ Code.app
+  mkdir -p "$HOME/Library/Application Support/Code/User/"
+  #open /Applications/Visual\ Studio\ Code.app
 fi
 
 if [ ! -f "$HOME/Library/Application Support/Code/User/keybindings.json" ]; then
@@ -303,16 +315,16 @@ fi
 if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
   cd
   curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/laptop_setup_todo_list.md
-  open /Applications/MacDown.app laptop_setup_todo_list.md
+  open /Applications/MacDown.app $HOME/laptop_setup_todo_list.md
 fi
 
-if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
+if [ ! -f "$HOME/.gitconfig" ]; then
   fancy_echo "...copying .gitconfig"
   cd
   curl --remote-name https://gist.githubusercontent.com/roberttaraya/e1f85f06e1359ea0b7d7/raw/9aba1578a47f2d9a14133dd8ef906e5c31f45f68/.gitconfig
 fi
 
-if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
+if [ ! -f "$HOME/.gitignore_global" ]; then
   fancy_echo "...copying .gitignore_global"
   cd
   curl --remote-name https://gist.githubusercontent.com/roberttaraya/ae1580de25ff4859c0b5d3a2cbeca0a3/raw/d71de712ddcc1b50cae906b90b590c0ffa39a9fa/.gitignore_global
@@ -320,7 +332,7 @@ fi
 
 fancy_echo '...creating a working directory for your code...'
 if [ ! -d "$HOME/Workspace/" ]; then
-  mkdir "$HOME/Workspace"
+  mkdir -p "$HOME/Workspace"
 fi
 
 fancy_echo 'All done!'
