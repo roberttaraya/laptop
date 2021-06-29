@@ -6,6 +6,10 @@
 [add your new ssh key to github](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
 
+## Setup Logitech M510 Mouse Options
+* download logigech options software
+* https://support.logi.com/hc/en-us/articles/360024361233
+
 ## Finder > Preferences > Sidebar
 * check Home (roberttaraya) directory (and other directories as needed)
 
@@ -87,4 +91,3 @@
 	* `VSCode Ruby` by Stafford Brunk
 	* `endwise` by Kai Wood
 	* `vscode-run-rspec-file` by thadeu
-
