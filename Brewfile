@@ -62,10 +62,10 @@ brew "tree"
 brew "yarn"
 
 # Application launcher and productivity software
-#cask "alfred"
+cask "alfred"
 
 # Memory training application
-#cask "anki"
+cask "anki"
 
 # UI wireframing tool
 #cask "balsamiq-wireframes"
@@ -128,7 +128,7 @@ cask "pgadmin4"
 cask "postman"
 
 # Peer to peer Bitorrent client
-#cask "qbittorrent"
+cask "qbittorrent"
 
 # MongoDB management tool
 #cask "robo-3t"
@@ -149,4 +149,4 @@ cask "sublime-text"
 cask "visual-studio-code"
 
 # Multimedia player
-#cask "vlc"
+cask "vlc"
