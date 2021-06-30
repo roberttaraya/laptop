@@ -70,7 +70,7 @@
 	* `GitGutter`
 	* `SideBarEnhancements`
 	* `Advanced New File`
-* copy app license text and enter to app
+* copy [app license](https://drive.google.com/file/d/0B3L6WzP1P-KjTXhEM25HVU14b00/view?usp=sharing&resourcekey=0-Fk5j6Mb9hlbB7yBK913eKg) text and enter to app
 
 ## VS Code Setup
 * install 'code' command in PATH
