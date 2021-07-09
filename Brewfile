@@ -62,10 +62,10 @@ brew "tree"
 brew "yarn"
 
 # Application launcher and productivity software
-cask "alfred"
+#cask "alfred"
 
 # Memory training application
-cask "anki"
+#cask "anki"
 
 # UI wireframing tool
 #cask "balsamiq-wireframes"
@@ -74,13 +74,13 @@ cask "anki"
 #cask "bartender"
 
 # Visual communication platform
-cask "cloudapp"
+#cask "cloudapp"
 
 # API documentation browser and code snippet manager
-cask "dash"
+#cask "dash"
 
 # VPN client for secure internet access and private browsing
-cask "expressvpn"
+#cask "expressvpn"
 
 # Web browser
 cask "firefox"
@@ -89,10 +89,10 @@ cask "firefox"
 #cask "gimp"
 
 # Back up and sync files with Google Drive
-cask "google-backup-and-sync"
+#cask "google-backup-and-sync"
 
 # Google Chat replaces Google Hangouts
-cask "google-chat"
+#cask "google-chat"
 
 # Web browser
 cask "google-chrome"
@@ -107,7 +107,7 @@ cask "iterm2"
 cask "kaleidoscope"
 
 # Interface for reading and syncing eBooks
-cask "kindle"
+#cask "kindle"
 
 # Visual user interface for Docker Container management
 cask "kitematic"
@@ -128,7 +128,7 @@ cask "pgadmin4"
 cask "postman"
 
 # Peer to peer Bitorrent client
-cask "qbittorrent"
+#cask "qbittorrent"
 
 # MongoDB management tool
 #cask "robo-3t"
@@ -149,4 +149,4 @@ cask "sublime-text"
 cask "visual-studio-code"
 
 # Multimedia player
-cask "vlc"
+#cask "vlc"
