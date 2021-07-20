@@ -335,5 +335,11 @@ if [ ! -d "$HOME/Workspace/" ]; then
   mkdir -p "$HOME/Workspace"
 fi
 
+fancy_echo '...downloading your avatar...'
+if [! -f "$HOME/Documents/avatar.jpg" ]; then
+  cd "$HOME/Documents"
+  curl -L -o "Robert's avatar.jpg" https://drive.google.com/uc\?export\=download\&id\=0B3L6WzP1P-KjV1c3ZF82Mm1MOFU
+fi
+
 fancy_echo 'All done!'
 exec zsh
