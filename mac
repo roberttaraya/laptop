@@ -254,6 +254,8 @@ fi
 # Configurations, Settings, & Preferences
 if [ ! -d "$HOME/Library/Application Support/iTerm2/" ]; then
   mkdir -p "$HOME/Library/Application Support/iTerm2/"
+else
+  fancy_echo 'iTerm2 directory already exists. Skipping...'
 fi
 
 if [ ! -f "$HOME/Library/Application Support/iTerm2/com.googlecode.iterm2.plist" ]; then
@@ -269,6 +271,8 @@ fi
 fancy_echo 'Setting up Sublime Text...'
 if [ ! -d "$HOME/Library/Application Support/Sublime Text/Packages/User/" ]; then
   mkdir -p "$HOME/Library/Application Support/Sublime Text/Packages/User/"
+else
+  fancy_echo 'Sublime Text packages directory already exists. Skipping...'
 fi
 
 if [ ! -f "$HOME/Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings" ]; then
@@ -282,6 +286,8 @@ fi
 if ! command -v subl >/dev/null; then
   fancy_echo '...creating a symbolic link for subl...'
   ln -s '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' /usr/local/bin/subl
+else
+  fancy_echo 'symbolic link for subl already exists. Skipping...'
 fi
 
 
@@ -289,6 +295,8 @@ fancy_echo 'Setting up VS Code...'
 if [ ! -d "$HOME/Library/Application Support/Code/User/" ]; then
   mkdir -p "$HOME/Library/Application Support/Code/User/"
   #open /Applications/Visual\ Studio\ Code.app
+else
+  fancy_echo 'VS Code directory already exists. Skipping...'
 fi
 
 if [ ! -f "$HOME/Library/Application Support/Code/User/keybindings.json" ]; then
@@ -310,6 +318,8 @@ fi
 if ! command -v code >/dev/null; then
   fancy_echo '...creating a symbolic link for VS Code...'
   ln -s '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' /usr/local/bin/code
+else
+  fancy_echo 'symbolic link for code already exists. Skipping...'
 fi
 
 if [ ! -f "$HOME/Documents/laptop_setup_todo_list.md" ]; then
@@ -317,29 +327,39 @@ if [ ! -f "$HOME/Documents/laptop_setup_todo_list.md" ]; then
   cd "$HOME/Documents"
   curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/laptop_setup_todo_list.md
   open /Applications/MacDown.app $HOME/Documents/laptop_setup_todo_list.md
+else
+  fancy_echo 'laptop setup todo lists already exists. Skipping...'
 fi
 
 if [ ! -f "$HOME/.gitconfig" ]; then
   fancy_echo "...copying .gitconfig"
   cd
   curl --remote-name https://gist.githubusercontent.com/roberttaraya/e1f85f06e1359ea0b7d7/raw/9aba1578a47f2d9a14133dd8ef906e5c31f45f68/.gitconfig
+else
+  fancy_echo '.gitconfig already exists. Skipping...'
 fi
 
 if [ ! -f "$HOME/.gitignore_global" ]; then
   fancy_echo "...copying .gitignore_global"
   cd
   curl --remote-name https://gist.githubusercontent.com/roberttaraya/ae1580de25ff4859c0b5d3a2cbeca0a3/raw/d71de712ddcc1b50cae906b90b590c0ffa39a9fa/.gitignore_global
+else
+  fancy_echo '.gitconfig_global already exists. Skipping...'
 fi
 
 if [ ! -d "$HOME/Workspace/" ]; then
   fancy_echo '...creating a working directory for your code...'
   mkdir -p "$HOME/Workspace"
+else
+  fancy_echo '/Workspace directory already exists. Skipping...'
 fi
 
 if [ ! -f "$HOME/Documents/avatar.jpg" ]; then
   fancy_echo '...downloading your avatar...'
   cd "$HOME/Documents"
   curl -L -o "Robert's avatar.jpg" https://drive.google.com/uc\?export\=download\&id\=0B3L6WzP1P-KjV1c3ZF82Mm1MOFU
+else
+  fancy_echo 'personal avatar already exists. Skipping...'
 fi
 
 fancy_echo 'All done!'
