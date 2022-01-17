@@ -312,10 +312,11 @@ if ! command -v code >/dev/null; then
   ln -s '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' /usr/local/bin/code
 fi
 
-if [ ! -f "$HOME/laptop_setup_todo_list.md" ]; then
-  cd
+if [ ! -f "$HOME/Documents/laptop_setup_todo_list.md" ]; then
+  fancy_echo '...copying setup todo list...'
+  cd "$HOME/Documents"
   curl --remote-name https://raw.githubusercontent.com/roberttaraya/laptop/master/laptop_setup_todo_list.md
-  open /Applications/MacDown.app $HOME/laptop_setup_todo_list.md
+  open /Applications/MacDown.app $HOME/Documents/laptop_setup_todo_list.md
 fi
 
 if [ ! -f "$HOME/.gitconfig" ]; then
@@ -330,13 +331,13 @@ if [ ! -f "$HOME/.gitignore_global" ]; then
   curl --remote-name https://gist.githubusercontent.com/roberttaraya/ae1580de25ff4859c0b5d3a2cbeca0a3/raw/d71de712ddcc1b50cae906b90b590c0ffa39a9fa/.gitignore_global
 fi
 
-fancy_echo '...creating a working directory for your code...'
 if [ ! -d "$HOME/Workspace/" ]; then
+  fancy_echo '...creating a working directory for your code...'
   mkdir -p "$HOME/Workspace"
 fi
 
-fancy_echo '...downloading your avatar...'
-if [! -f "$HOME/Documents/avatar.jpg" ]; then
+if [ ! -f "$HOME/Documents/avatar.jpg" ]; then
+  fancy_echo '...downloading your avatar...'
   cd "$HOME/Documents"
   curl -L -o "Robert's avatar.jpg" https://drive.google.com/uc\?export\=download\&id\=0B3L6WzP1P-KjV1c3ZF82Mm1MOFU
 fi
