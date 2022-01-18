@@ -186,6 +186,7 @@ else
   fi
 fi
 
+ruby-install --latest > /dev/null
 latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
 if ! [ "$latest_stable_ruby" = "$(latest_installed_ruby)" ]; then
   fancy_echo "Installing latest stable Ruby version: $latest_stable_ruby"
