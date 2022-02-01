@@ -166,40 +166,43 @@ append_to_file "$HOME/.gemrc" 'gem: --no-document'
 
 ##
 # Install Ruby, chruby
-if ! brew_is_installed 'chruby'; then
-  fancy_echo 'Installing chruby...'
-  brew install chruby
-else
-  fancy_echo 'chruby already installed. Skipping...'
-fi
+fancy_echo 'Installing ruby-2.7.5 ...'
+rvm install 2.7.5
+rvm --default use 2.7.5
+# if ! brew_is_installed 'chruby'; then
+#   fancy_echo 'Installing chruby...'
+#   brew install chruby
+# else
+#   fancy_echo 'chruby already installed. Skipping...'
+# fi
 
-if ! brew_is_installed 'ruby-install'; then
-  fancy_echo 'Installing ruby-install...'
-  brew install ruby-install
-  ruby-install ruby
-else
-  fancy_echo 'ruby-install already installed. Skipping...'
+# if ! brew_is_installed 'ruby-install'; then
+#   fancy_echo 'Installing ruby-install...'
+#   brew install ruby-install
+#   ruby-install ruby
+# else
+#   fancy_echo 'ruby-install already installed. Skipping...'
 
-  if [ ! -d "$HOME/.rubies/" ]; then
-    fancy_echo "Installing latest stable Ruby version..."
-    ruby-install ruby
-  fi
-fi
+#   if [ ! -d "$HOME/.rubies/" ]; then
+#     fancy_echo "Installing latest stable Ruby version..."
+#     ruby-install ruby
+#   fi
+# fi
 
-latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
-if ! [ "$latest_stable_ruby" = "$(latest_installed_ruby)" ]; then
-  fancy_echo "Installing latest stable Ruby version: $latest_stable_ruby"
-  ruby-install ruby
-else
-  fancy_echo 'You have the latest version of Ruby'
-fi
+# latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
+# if ! [ "$latest_stable_ruby" = "$(latest_installed_ruby)" ]; then
+#   fancy_echo "Installing latest stable Ruby version: $latest_stable_ruby"
+#   ruby-install ruby
+# else
+#   fancy_echo 'You have the latest version of Ruby'
+# fi
 
-if ! command -v chruby > /dev/null; then
-  append_to_file "$shell_file" 'source /usr/local/share/chruby/chruby.sh'
-  append_to_file "$shell_file" 'source /usr/local/share/chruby/auto.sh'
-  append_to_file "$shell_file" "chruby ruby-$(latest_installed_ruby)"
-fi
-switch_to_latest_ruby
+# if ! command -v chruby > /dev/null; then
+#   append_to_file "$shell_file" 'source /usr/local/share/chruby/chruby.sh'
+#   append_to_file "$shell_file" 'source /usr/local/share/chruby/auto.sh'
+#   append_to_file "$shell_file" "chruby ruby-$(latest_installed_ruby)"
+# fi
+# switch_to_latest_ruby
 
 
 ##
@@ -217,8 +220,8 @@ bundle config --global jobs $((number_of_cores - 1))
 fancy_echo 'Installing Rails...'
 gem install rails
 
-fancy_echo 'Installing Jekyll...'
-gem install jekyll
+# fancy_echo 'Installing Jekyll...'
+# gem install jekyll
 
 fancy_echo '...Finished Ruby installation checks.'
 
