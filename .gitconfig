@@ -1,0 +1,64 @@
+[user]
+  name = Robert Taraya
+  username = roberttaraya
+  email = robert.taraya@gmail.com
+
+[core]
+  autocrlf = input
+  editor = code -w
+  excludesfile = ~/.gitignore_global
+
+[pull]
+  rebase = true
+  ff = only
+
+[push]
+  default = simple
+
+[pager]
+  branch = false
+
+[url "https://github.com"]
+  insteadOf = git://github.com
+
+[credential]
+  helper = osxkeychain
+
+[color]
+  ui = auto
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[alias]
+  co = checkout
+  cob = checkout -b
+
+  lg = log \
+    --graph \
+    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+    --abbrev-commit \
+    --date=relative
+
+  ci = commit --verbose
+  st = status
+
+  branches = branch -a
+  stage = add
+  unstage = reset HEAD
+
+  wip = commit -am "WIP" --no-verify
+  undo = reset HEAD~1 --mixed
+
+  amend = commit --verbose --amend
+  noedit = commit --amend --no-edit
+  caa = commit -a --amend -C HEAD
+
+[init]
+  defaultBranch = main
+
+[fetch]
+  prune = true
