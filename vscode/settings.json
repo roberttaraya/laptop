@@ -1,0 +1,63 @@
+{
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontSize": 20,
+  "editor.fontWeight": "normal",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.rulers": [50, 72, 100, 130],
+  "editor.scrollBeyondLastLine": true,
+  "editor.snippetSuggestions": "top",
+  "editor.tabSize": 2,
+  "files.autoSave": "onFocusChange",
+  "files.encoding": "utf8",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontSize": 18,
+  "terminal.integrated.scrollback": 1000000000000,
+  "terminal.integrated.tabs.location": "left",
+  "workbench.colorTheme": "Spinel",
+  "workbench.preferredDarkColorTheme": "Solarized Dark",
+  "workbench.preferredLightColorTheme": "Solarized Light",
+  "terminal.integrated.automationShell.linux": "",
+  "security.workspace.trust.untrustedFiles": "open",
+  "tabnine.experimentalAutoImports": true,
+  "restoreTerminals.terminals": [
+    {
+      "splitTerminals": [
+        {
+          "name": "Rails Server",
+          "commands": ["bin/run"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "Rails Console",
+          "commands": ["bin/rails c"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "git",
+          "commands": ["git status"]
+        }
+      ]
+    }
+  ],
+  "window.zoomLevel": 1,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "editor.codeActionsOnSave": {}
+}
